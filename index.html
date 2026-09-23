@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STT - Grande Festa à Fantasia do Trimestre 🎉</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Canvas Confetti Library -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800;900&family=Plus+Jakarta+Sans:wght@400;500;700;800&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            purple: '#1a0b2e',
+                            violet: '#3b0764',
+                            magenta: '#d946ef',
+                            gold: '#f59e0b',
+                            goldLight: '#fef08a',
+                            neonPink: '#ff007f'
+                        }
+                    },
+                    fontFamily: {
+                        title: ['Cinzel', 'serif'],
+                        body: ['Plus Jakarta Sans', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom Keyframe Animations and Effects */
+        body {
+            background-color: #0b0314;
+            color: #f3f4f6;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            overflow-x: hidden;
+        }
+
+        .font-title {
+            font-family: 'Cinzel', serif;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+
+        .glass-card-gold {
+            background: rgba(245, 158, 11, 0.05);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(245, 158, 11, 0.25);
+        }
+
+        .text-glow {
+            text-shadow: 0 0 20px rgba(217, 70, 239, 0.6), 0 0 40px rgba(245, 158, 11, 0.4);
+        }
+
+        .text-glow-gold {
+            text-shadow: 0 0 15px rgba(245, 158, 11, 0.8);
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-15px) rotate(5deg); }
+        }
+
+        @keyframes float-reverse {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(15px) rotate(-5deg); }
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% { opacity: 0.4; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(1.05); }
+        }
+
+        .animate-float {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .animate-float-slow {
+            animation: float-reverse 9s ease-in-out infinite;
+        }
+
+        .animate-pulse-glow {
+            animation: pulse-glow 4s ease-in-out infinite;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0b0314;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #3b0764;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #d946ef;
+        }
+    </style>
+</head>
+<body class="relative min-h-screen">
+
+    <!-- Background Ambient Glows -->
+    <div class="fixed top-0 left-1/4 w-[500px] h-[500px] bg-purple-900/30 rounded-full blur-[120px] pointer-events-none animate-pulse-glow"></div>
+    <div class="fixed bottom-0 right-1/4 w-[600px] h-[600px] bg-fuchsia-900/20 rounded-full blur-[140px] pointer-events-none animate-pulse-glow" style="animation-delay: 2s;"></div>
+    <div class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-amber-600/10 rounded-full blur-[160px] pointer-events-none"></div>
+
+    <!-- Floating Thematic Icons (Background Deco) -->
+    <div class="fixed top-12 left-8 text-fuchsia-500/20 text-6xl animate-float pointer-events-none hidden md:block">
+        <i class="fa-solid fa-masks-theater"></i>
+    </div>
+    <div class="fixed bottom-20 left-16 text-amber-400/20 text-7xl animate-float-slow pointer-events-none hidden md:block">
+        <i class="fa-solid fa-wand-magic-sparkles"></i>
+    </div>
+    <div class="fixed top-1/3 right-12 text-purple-400/20 text-6xl animate-float pointer-events-none hidden md:block" style="animation-delay: 1.5s;"> Animação de Entrada
+        <i class="fa-solid fa-hat-wizard"></i>
+    </div>
+    <div class="fixed bottom-32 right-20 text-fuchsia-400/20 text-5xl animate-float-slow pointer-events-none hidden md:block" style="animation-delay: 3s;">
+        <i class="fa-solid fa-champagne-glasses"></i>
+    </div>
+
+    <!-- Header Navigation -->
+    <header class="sticky top-0 z-40 w-full glass-card border-b border-white/10 px-4 lg:px-8 py-3 transition-all duration-300">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-fuchsia-600 to-amber-400 flex items-center justify-center text-white shadow-lg shadow-fuchsia-500/30">
+                    <i class="fa-solid fa-masks-theater text-xl"></i>
+                </div>
+                <div>
+                    <span class="font-title text-xl font-bold tracking-wider bg-clip-text text-transparent bg-gradient-to-r from-amber-200 via-fuchsia-300 to-fuchsia-500">
+                        STT FESTA
+                    </span>
+                    <span class="block text-[10px] tracking-widest text-fuchsia-300 uppercase -mt-1 font-semibold">Snack Time Together</span>
+                </div>
+            </div>
+
+            <nav class="hidden md:flex items-center gap-6 text-sm font-medium">
+                <a href="#detalhes" class="hover:text-amber-300 transition-colors flex items-center gap-1.5"><i class="fa-solid fa-star text-xs text-amber-400"></i> Evento</a>
+                <a href="#fantasia" class="hover:text-amber-300 transition-colors flex items-center gap-1.5"><i class="fa-solid fa-dice text-xs text-fuchsia-400"></i> Gerador</a>
+                <a href="#votacao" class="hover:text-amber-300 transition-colors flex items-center gap-1.5"><i class="fa-solid fa-check-to-slot text-xs text-purple-400"></i> Votação</a>
+                <a href="#galeria" class="hover:text-amber-300 transition-colors flex items-center gap-1.5"><i class="fa-solid fa-camera text-xs text-amber-400"></i> Galeria</a>
+            </nav>
+
+            <div class="flex items-center gap-3">
+                <button onclick="toggleAIModal()" class="px-3.5 py-2 rounded-xl text-xs font-semibold glass-card hover:bg-white/10 text-fuchsia-200 border border-fuchsia-500/30 transition-all flex items-center gap-2">
+                    <i class="fa-solid fa-robot text-amber-400"></i>
+                    <span class="hidden sm:inline">Relatório</span> IA
+                </button>
+                <button onclick="triggerConfetti()" class="px-4 py-2 rounded-xl text-xs font-bold bg-gradient-to-r from-fuchsia-600 to-amber-500 hover:from-fuchsia-500 hover:to-amber-400 text-white shadow-lg shadow-fuchsia-600/30 transition-all transform hover:scale-105 active:scale-95 flex items-center gap-2">
+                    <i class="fa-solid fa-burst"></i>
+                    <span>Soltar Confete!</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-16">
+
+        <!-- HERO SECTION -->
+        <section class="relative pt-6 pb-12 flex flex-col items-center text-center">
+            
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass-card-gold text-amber-300 text-xs sm:text-sm font-semibold mb-6 border border-amber-500/30 animate-bounce">
+                <i class="fa-solid fa-crown text-amber-400"></i>
+                <span>Edição Especial do Trimestre STT</span>
+            </div>
+
+            <h1 class="font-title text-4xl sm:text-6xl md:text-7xl font-black tracking-tight text-white max-w-4xl leading-tight mb-4 text-glow">
+                NOITE MÁGICA & MÁSCARAS MISTERIOSAS
+            </h1>
+
+            <p class="text-lg sm:text-xl text-purple-200/90 max-w-2xl font-light leading-relaxed mb-8">
+                Prepare sua melhor fantasia! A equipe do <strong class="text-amber-300 font-semibold">Snack Time Together</strong> convida você para uma celebração inesquecível repleta de mistério, snacks deliciosos e prêmios sensacionais.
+            </p>
+
+            <!-- Key Announcement Box -->
+            <div class="w-full max-w-3xl glass-card rounded-3xl p-6 sm:p-8 border border-fuchsia-500/30 relative overflow-hidden shadow-2xl mb-10">
+                <div class="absolute -right-10 -bottom-10 w-40 h-40 bg-fuchsia-600/20 rounded-full blur-2xl pointer-events-none"></div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 relative z-10 text-left">
+                    
+                    <!-- Item Data -->
+                    <div class="flex items-start gap-4 p-3 rounded-2xl bg-white/5 border border-white/5">
+                        <div class="w-12 h-12 rounded-2xl bg-amber-500/20 text-amber-400 flex items-center justify-center shrink-0 border border-amber-500/30 text-xl">
+                            <i class="fa-regular fa-calendar-check"></i>
+                        </div>
+                        <div>
+                            <span class="text-xs font-semibold text-purple-300 uppercase tracking-wider block">Data Oficial</span>
+                            <span class="text-lg font-bold text-amber-300 block">09 de Outubro de 2026</span>
+                            <span class="text-[11px] text-gray-300">Marque na sua agenda! 🗓️</span>
+                        </div>
+                    </div>
+
+                    <!-- Item Horario -->
+                    <div class="flex items-start gap-4 p-3 rounded-2xl bg-white/5 border border-white/5">
+                        <div class="w-12 h-12 rounded-2xl bg-fuchsia-500/20 text-fuchsia-400 flex items-center justify-center shrink-0 border border-fuchsia-500/30 text-xl">
+                            <i class="fa-regular fa-clock"></i>
+                        </div>
+                        <div>
+                            <span class="text-xs font-semibold text-purple-300 uppercase tracking-wider block">Horário</span>
+                            <span class="text-lg font-bold text-white block">A partir das 18:30</span>
+                            <span class="text-[11px] text-purple-200/70">Happy Hour estendido</span>
+                        </div>
+                    </div>
+
+                    <!-- Item Local -->
+                    <div class="flex items-start gap-4 p-3 rounded-2xl bg-white/5 border border-white/5">
+                        <div class="w-12 h-12 rounded-2xl bg-purple-500/20 text-purple-300 flex items-center justify-center shrink-0 border border-purple-500/30 text-xl">
+                            <i class="fa-solid fa-location-dot"></i>
+                        </div>
+                        <div>
+                            <span class="text-xs font-semibold text-purple-300 uppercase tracking-wider block">Local</span>
+                            <span class="text-base font-bold text-white block leading-snug">E. E. Maria Vicência Brandão</span>
+                            <span class="text-[11px] text-amber-200/90 font-medium">Padre Fialho — Matipó</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Countdown Section -->
+            <div class="w-full max-w-3xl glass-card rounded-2xl p-6 border border-amber-500/20">
+                <div class="flex flex-col sm:flex-row items-center justify-between gap-4 mb-4">
+                    <div class="text-center sm:text-left">
+                        <h3 class="text-sm font-bold uppercase tracking-wider text-amber-400 flex items-center gap-2 justify-center sm:justify-start">
+                            <i class="fa-solid fa-stopwatch"></i> Contagem Regressiva para 09/10
+                        </h3>
+                        <p class="text-xs text-gray-300" id="countdown-status">Status: Faltam poucos dias para a grande festa!</p>
+                    </div>
+
+                    <!-- Date Adjuster for STT Team -->
+                    <div class="flex items-center gap-2">
+                        <label for="demo-date" class="text-xs text-purple-300 font-medium">Alterar data:</label>
+                        <input type="date" id="demo-date" value="2026-10-09" onchange="updateCustomCountdown(this.value)" class="bg-black/40 border border-fuchsia-500/40 rounded-lg px-2 py-1 text-xs text-white focus:outline-none focus:border-amber-400">
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-4 gap-3 sm:gap-6 text-center">
+                    <div class="bg-purple-950/60 border border-purple-500/30 rounded-xl p-3">
+                        <span id="cd-days" class="font-title text-2xl sm:text-4xl font-extrabold text-amber-300 block">--</span>
+                        <span class="text-[10px] sm:text-xs text-purple-200 uppercase tracking-wider">Dias</span>
+                    </div>
+                    <div class="bg-purple-950/60 border border-purple-500/30 rounded-xl p-3">
+                        <span id="cd-hours" class="font-title text-2xl sm:text-4xl font-extrabold text-fuchsia-300 block">--</span>
+                        <span class="text-[10px] sm:text-xs text-purple-200 uppercase tracking-wider">Horas</span>
+                    </div>
+                    <div class="bg-purple-950/60 border border-purple-500/30 rounded-xl p-3">
+                        <span id="cd-minutes" class="font-title text-2xl sm:text-4xl font-extrabold text-amber-300 block">--</span>
+                        <span class="text-[10px] sm:text-xs text-purple-200 uppercase tracking-wider">Minutos</span>
+                    </div>
+                    <div class="bg-purple-950/60 border border-purple-500/30 rounded-xl p-3">
+                        <span id="cd-seconds" class="font-title text-2xl sm:text-4xl font-extrabold text-fuchsia-300 block">--</span>
+                        <span class="text-[10px] sm:text-xs text-purple-200 uppercase tracking-wider">Segundos</span>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- DETAILS / ATTRACTIONS SECTION -->
+        <section id="detalhes" class="space-y-8">
+            <div class="text-center max-w-2xl mx-auto">
+                <h2 class="font-title text-2xl sm:text-4xl font-bold text-white mb-2">O que espera por você?</h2>
+                <p class="text-sm sm:text-base text-purple-200/80">Confira as atrações preparadas especialmente pela equipe do STT para o nosso encontro trimestral.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Card 1 -->
+                <div class="glass-card rounded-2xl p-6 border border-white/10 hover:border-fuchsia-500/50 transition-all duration-300 hover:-translate-y-2 group">
+                    <div class="w-14 h-14 rounded-2xl bg-fuchsia-600/20 text-fuchsia-400 flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform border border-fuchsia-500/30">
+                        <i class="fa-solid fa-trophy"></i>
+                    </div>
+                    <h3 class="font-title text-xl font-bold text-white mb-2 group-hover:text-amber-300 transition-colors">Desfile & Premiação</h3>
+                    <p class="text-sm text-gray-300 leading-relaxed">
+                        Concurso das melhores fantasias em diversas categorias: "Mais Criativa", "Mais Engraçada", "Melhor Fantasia em Dupla/Grupo" e "Mais Misteriosa". Com troféus e brindes!
+                    </p>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="glass-card rounded-2xl p-6 border border-white/10 hover:border-amber-500/50 transition-all duration-300 hover:-translate-y-2 group">
+                    <div class="w-14 h-14 rounded-2xl bg-amber-500/20 text-amber-400 flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform border border-amber-500/30">
+                        <i class="fa-solid fa-utensils"></i>
+                    </div>
+                    <h3 class="font-title text-xl font-bold text-white mb-2 group-hover:text-amber-300 transition-colors">Snacks Temáticos</h3>
+                    <p class="text-sm text-gray-300 leading-relaxed">
+                        Cardápio especial do STT com comidinhas finger food temáticas, poções alcoólicas e não-alcoólicas, doces decorados e uma mesa de petiscos surreal.
+                    </p>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="glass-card rounded-2xl p-6 border border-white/10 hover:border-purple-500/50 transition-all duration-300 hover:-translate-y-2 group">
+                    <div class="w-14 h-14 rounded-2xl bg-purple-500/20 text-purple-300 flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform border border-purple-500/30">
+                        <i class="fa-solid fa-music"></i>
+                    </div>
+                    <h3 class="font-title text-xl font-bold text-white mb-2 group-hover:text-amber-300 transition-colors">Música & DJ Guest</h3>
+                    <p class="text-sm text-gray-300 leading-relaxed">
+                        Playlist colaborativa da equipe, DJ animando a pista com o melhor do pop, retrô e ritmos festivos para ninguém ficar parado.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- INTERACTIVE COSTUME IDEA GENERATOR -->
+        <section id="fantasia" class="glass-card rounded-3xl p-6 sm:p-10 border border-fuchsia-500/30 relative overflow-hidden">
+            <div class="absolute -left-16 -top-16 w-48 h-48 bg-amber-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+            <div class="max-w-3xl mx-auto text-center space-y-6">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-fuchsia-500/20 text-fuchsia-300 text-xs font-semibold border border-fuchsia-500/30">
+                    <i class="fa-solid fa-lightbulb"></i> Sem ideia do que vestir?
+                </div>
+
+                <h2 class="font-title text-2xl sm:text-4xl font-bold text-white">Gerador de Fantasias do STT</h2>
+                <p class="text-sm sm:text-base text-gray-300">Clique no botão abaixo para rodar a roleta e descobrir uma ideia hilária ou épica para usar no dia!</p>
+
+                <!-- Generator Output Display -->
+                <div id="costume-result" class="min-h-[140px] bg-black/40 border-2 border-dashed border-fuchsia-500/40 rounded-2xl p-6 flex flex-col items-center justify-center transition-all">
+                    <i class="fa-solid fa-masks-theater text-4xl text-fuchsia-400/50 mb-2"></i>
+                    <p class="text-gray-400 italic text-sm">Sua sugestão de fantasia aparecerá aqui...</p>
+                </div>
+
+                <div class="flex flex-wrap items-center justify-center gap-4">
+                    <button onclick="generateCostumeIdea()" class="px-6 py-3.5 rounded-xl font-bold bg-gradient-to-r from-fuchsia-600 via-purple-600 to-amber-500 text-white shadow-lg shadow-fuchsia-600/30 hover:scale-105 active:scale-95 transition-all flex items-center gap-2">
+                        <i class="fa-solid fa-dice-five text-lg"></i>
+                        <span>Gerar Ideia Surpresa!</span>
+                    </button>
+                    <button onclick="copyCostumeIdea()" id="copy-btn" class="px-5 py-3.5 rounded-xl font-medium glass-card border border-white/20 text-gray-200 hover:bg-white/10 transition-all flex items-center gap-2 hidden">
+                        <i class="fa-regular fa-copy"></i>
+                        <span>Copiar Ideia</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- INTERACTIVE VOTING / POLL SECTION -->
+        <section id="votacao" class="space-y-6">
+            <div class="text-center max-w-2xl mx-auto">
+                <h2 class="font-title text-2xl sm:text-4xl font-bold text-white mb-2">Qual categoria você quer ver?</h2>
+                <p class="text-sm sm:text-base text-purple-200/80">Vote na categoria de fantasia que você considera mais indispensável para a premiação do STT!</p>
+            </div>
+
+            <div class="max-w-3xl mx-auto glass-card rounded-2xl p-6 sm:p-8 border border-white/10 space-y-4">
+                
+                <!-- Poll Option 1 -->
+                <div class="space-y-1">
+                    <div class="flex justify-between text-sm font-semibold">
+                        <span class="text-white flex items-center gap-2">
+                            <i class="fa-solid fa-ghost text-fuchsia-400"></i> Fantasia Mais Criativa / Feita em Casa (DIY)
+                        </span>
+                        <span id="poll-percent-1" class="text-amber-300">42%</span>
+                    </div>
+                    <div class="w-full h-4 bg-black/40 rounded-full overflow-hidden border border-white/5 relative cursor-pointer" onclick="voteCategory(1)">
+                        <div id="poll-bar-1" class="h-full bg-gradient-to-r from-fuchsia-600 to-amber-400 transition-all duration-700" style="width: 42%;"></div>
+                    </div>
+                </div>
+
+                <!-- Poll Option 2 -->
+                <div class="space-y-1">
+                    <div class="flex justify-between text-sm font-semibold">
+                        <span class="text-white flex items-center gap-2">
+                            <i class="fa-solid fa-user-group text-purple-400"></i> Melhor Dupla / Grupo Temático
+                        </span>
+                        <span id="poll-percent-2" class="text-amber-300">35%</span>
+                    </div>
+                    <div class="w-full h-4 bg-black/40 rounded-full overflow-hidden border border-white/5 relative cursor-pointer" onclick="voteCategory(2)">
+                        <div id="poll-bar-2" class="h-full bg-gradient-to-r from-purple-600 to-fuchsia-500 transition-all duration-700" style="width: 35%;"></div>
+                    </div>
+                </div>
+
+                <!-- Poll Option 3 -->
+                <div class="space-y-1">
+                    <div class="flex justify-between text-sm font-semibold">
+                        <span class="text-white flex items-center gap-2">
+                            <i class="fa-solid fa-laugh-squint text-amber-400"></i> Mais Engraçada / Memes da Firma
+                        </span>
+                        <span id="poll-percent-3" class="text-amber-300">23%</span>
+                    </div>
+                    <div class="w-full h-4 bg-black/40 rounded-full overflow-hidden border border-white/5 relative cursor-pointer" onclick="voteCategory(3)">
+                        <div id="poll-bar-3" class="h-full bg-gradient-to-r from-amber-500 to-amber-300 transition-all duration-700" style="width: 23%;"></div>
+                    </div>
+                </div>
+
+                <p class="text-center text-xs text-gray-400 pt-2" id="vote-notice">
+                    <i class="fa-solid fa-hand-pointer"></i> Clique em qualquer barra acima para registrar seu voto!
+                </p>
+            </div>
+        </section>
+
+        <!-- PHOTO GALLERY SECTION (📸 Em Breve!) -->
+        <section id="galeria" class="space-y-8">
+            <div class="text-center max-w-2xl mx-auto">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/20 text-amber-300 text-xs font-semibold border border-amber-500/30 mb-2">
+                    <i class="fa-solid fa-camera-retro"></i> Memórias em Construção
+                </div>
+                <h2 class="font-title text-2xl sm:text-4xl font-bold text-white mb-2">Galeria do Evento</h2>
+                <p class="text-sm sm:text-base text-purple-200/80">As fotos dos melhores momentos, fantasias e premiações serão publicadas aqui após a festa!</p>
+            </div>
+
+            <!-- Polaroid Style Placeholders Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+                
+                <!-- Polaroid 1 -->
+                <div class="glass-card rounded-2xl p-4 border border-white/10 hover:border-fuchsia-500/40 transition-all duration-300 group">
+                    <div class="aspect-square bg-gradient-to-br from-purple-900/60 to-black/80 rounded-xl mb-3 flex flex-col items-center justify-center relative overflow-hidden border border-white/5">
+                        <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-fuchsia-600/10 via-transparent to-transparent"></div>
+                        <i class="fa-solid fa-masks-theater text-4xl text-fuchsia-400/40 group-hover:scale-125 transition-transform duration-500"></i>
+                        <span class="text-xs font-bold text-amber-300 uppercase tracking-widest mt-3 bg-black/60 px-3 py-1 rounded-full border border-amber-500/30">📸 Em Breve!</span>
+                    </div>
+                    <span class="block text-center font-title text-sm font-semibold text-white">Chegada do Pessoal</span>
+                    <span class="block text-center text-[11px] text-gray-400">Recepção & Welcome Drink</span>
+                </div>
+
+                <!-- Polaroid 2 -->
+                <div class="glass-card rounded-2xl p-4 border border-white/10 hover:border-fuchsia-500/40 transition-all duration-300 group">
+                    <div class="aspect-square bg-gradient-to-br from-purple-900/60 to-black/80 rounded-xl mb-3 flex flex-col items-center justify-center relative overflow-hidden border border-white/5">
+                        <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-amber-600/10 via-transparent to-transparent"></div>
+                        <i class="fa-solid fa-crown text-4xl text-amber-400/40 group-hover:scale-125 transition-transform duration-500"></i>
+                        <span class="text-xs font-bold text-amber-300 uppercase tracking-widest mt-3 bg-black/60 px-3 py-1 rounded-full border border-amber-500/30">📸 Em Breve!</span>
+                    </div>
+                    <span class="block text-center font-title text-sm font-semibold text-white">Desfile de Fantasias</span>
+                    <span class="block text-center text-[11px] text-gray-400">Momentos na Passarela</span>
+                </div>
+
+                <!-- Polaroid 3 -->
+                <div class="glass-card rounded-2xl p-4 border border-white/10 hover:border-fuchsia-500/40 transition-all duration-300 group">
+                    <div class="aspect-square bg-gradient-to-br from-purple-900/60 to-black/80 rounded-xl mb-3 flex flex-col items-center justify-center relative overflow-hidden border border-white/5">
+                        <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-fuchsia-600/10 via-transparent to-transparent"></div>
+                        <i class="fa-solid fa-champagne-glasses text-4xl text-purple-400/40 group-hover:scale-125 transition-transform duration-500"></i>
+                        <span class="text-xs font-bold text-amber-300 uppercase tracking-widest mt-3 bg-black/60 px-3 py-1 rounded-full border border-amber-500/30">📸 Em Breve!</span>
+                    </div>
+                    <span class="block text-center font-title text-sm font-semibold text-white">Mesa de Snacks STT</span>
+                    <span class="block text-center text-[11px] text-gray-400">Delícias & Poções</span>
+                </div>
+
+                <!-- Polaroid 4 -->
+                <div class="glass-card rounded-2xl p-4 border border-white/10 hover:border-fuchsia-500/40 transition-all duration-300 group">
+                    <div class="aspect-square bg-gradient-to-br from-purple-900/60 to-black/80 rounded-xl mb-3 flex flex-col items-center justify-center relative overflow-hidden border border-white/5">
+                        <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-amber-600/10 via-transparent to-transparent"></div>
+                        <i class="fa-solid fa-trophy text-4xl text-amber-300/40 group-hover:scale-125 transition-transform duration-500"></i>
+                        <span class="text-xs font-bold text-amber-300 uppercase tracking-widest mt-3 bg-black/60 px-3 py-1 rounded-full border border-amber-500/30">📸 Em Breve!</span>
+                    </div>
+                    <span class="block text-center font-title text-sm font-semibold text-white">Os Campeões</span>
+                    <span class="block text-center text-[11px] text-gray-400">Entrega de Prêmios</span>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- AI COPILOT DEVELOPMENT REPORT SECTION -->
+        <section class="glass-card rounded-3xl p-6 sm:p-8 border border-amber-500/30 relative">
+            <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 mb-6 pb-4 border-b border-white/10">
+                <div class="flex items-center gap-3">
+                    <div class="w-12 h-12 rounded-2xl bg-amber-500/20 text-amber-400 flex items-center justify-center text-2xl border border-amber-500/30">
+                        <i class="fa-solid fa-brain"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-title text-xl font-bold text-white">Uso do Copiloto de IA & Processo Criativo</h3>
+                        <p class="text-xs text-purple-200">Relatório de desenvolvimento transparente do projeto STT</p>
+                    </div>
+                </div>
+                <span class="text-xs font-semibold px-3 py-1 rounded-full bg-fuchsia-500/20 text-fuchsia-300 border border-fuchsia-500/30">
+                    Sinergia Humano + IA
+                </span>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm text-gray-300">
+                <div class="space-y-3 bg-black/30 p-4 rounded-xl border border-white/5">
+                    <h4 class="font-bold text-amber-300 flex items-center gap-2">
+                        <i class="fa-solid fa-terminal text-xs"></i> Prompts Utilizados no Processo:
+                    </h4>
+                    <ul class="list-disc list-inside space-y-1 text-xs text-gray-300/90 leading-relaxed">
+                        <li><em class="text-fuchsia-200">"Crie uma estrutura de landing page em HTML/JS com tema de Festa à Fantasia para a equipe STT com tom misterioso e festivo."</em></li>
+                        <li><em class="text-fuchsia-200">"Desenvolva um componente de contador regressivo dinâmico que permita simular datas para testes."</em></li>
+                        <li><em class="text-fuchsia-200">"Adicione micro-interações como disparador de confetes no Canvas e gerador de ideias de fantasias."</em></li>
+                    </ul>
+                </div>
+
+                <div class="space-y-3 bg-black/30 p-4 rounded-xl border border-white/5">
+                    <h4 class="font-bold text-amber-300 flex items-center gap-2">
+                        <i class="fa-solid fa-lightbulb text-xs"></i> Reflexão Crítica & Curadoria Humana:
+                    </h4>
+                    <p class="text-xs text-gray-300/90 leading-relaxed">
+                        A IA sugeriu a estrutura base do layout e os componentes visuais. O código foi aprimorado com <strong class="text-white">glassmorphism moderno</strong>, tipografia em estilo Cinzel, tratamento de datas relativas para o aviso de "Data a definir", animação suave para votação e placeholders com temática Polaroid.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="border-t border-white/10 py-8 text-center text-xs text-gray-400 glass-card mt-16">
+        <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div class="flex items-center gap-2">
+                <i class="fa-solid fa-masks-theater text-amber-400"></i>
+                <span class="font-bold text-white">STT — Snack Time Together</span>
+            </div>
+            <p>© 2026 STT Committee. Todos os direitos reservados. Prepare sua fantasia!</p>
+            <div class="flex items-center gap-4 text-gray-400">
+                <button onclick="triggerConfetti()" class="hover:text-amber-300 transition-colors">✨ Mais Confete</button>
+            </div>
+        </div>
+    </footer>
+
+    <!-- AI REPORT MODAL (Interactive detail viewer) -->
+    <div id="ai-modal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 hidden">
+        <div class="glass-card w-full max-w-2xl rounded-3xl p-6 border border-fuchsia-500/40 relative max-h-[90vh] overflow-y-auto">
+            <button onclick="toggleAIModal()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-white/10 text-white flex items-center justify-center hover:bg-white/20">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <div class="flex items-center gap-3 mb-4">
+                <i class="fa-solid fa-robot text-2xl text-amber-400"></i>
+                <h3 class="font-title text-xl font-bold text-white">Documentação do Uso da IA</h3>
+            </div>
+
+            <div class="space-y-4 text-sm text-gray-200">
+                <div class="p-3 bg-purple-950/50 rounded-xl border border-purple-500/30">
+                    <h4 class="font-bold text-amber-300 mb-1">1. O que foi aceito diretamente da IA:</h4>
+                    <p class="text-xs">Uso do Tailwind CSS, integração com a biblioteca `canvas-confetti` e matriz lógica do gerador aleatório de ideias de fantasias.</p>
+                </div>
+
+                <div class="p-3 bg-purple-950/50 rounded-xl border border-purple-500/30">
+                    <h4 class="font-bold text-amber-300 mb-1">2. O que foi alterado e ajustado:</h4>
+                    <p class="text-xs">Ajuste na hierarquia de cores para evitar contrastes pesados, customização do relógio para aceitar simulador de datas e melhoria da galeria Polaroid com estados desabilitados e visuais "📸 Em Breve!".</p>
+                </div>
+
+                <div class="p-3 bg-purple-950/50 rounded-xl border border-purple-500/30">
+                    <h4 class="font-bold text-amber-300 mb-1">3. O que foi melhorado:</h4>
+                    <p class="text-xs">Responsividade para celulares pequenos, inclusão da fonte Cinzel para clima épico e sombras com brilho neon nos botões.</p>
+                </div>
+            </div>
+
+            <div class="mt-6 text-right">
+                <button onclick="toggleAIModal()" class="px-5 py-2.5 rounded-xl font-bold bg-fuchsia-600 hover:bg-fuchsia-500 text-white text-xs">
+                    Entendido!
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification Toast -->
+    <div id="toast" class="fixed bottom-6 right-6 z-50 glass-card px-4 py-3 rounded-2xl border border-amber-500/40 text-xs text-amber-200 shadow-2xl flex items-center gap-2 translate-y-20 opacity-0 transition-all duration-300 pointer-events-none">
+        <i class="fa-solid fa-circle-check text-amber-400 text-base"></i>
+        <span id="toast-message">Mensagem aqui</span>
+    </div>
+
+    <!-- JAVASCRIPT CODE -->
+    <script>
+        // Array of Fun Costume Ideas for the STT Generator
+        const costumeIdeas = [
+            { name: "Snack Man / Snack Woman", desc: "Sua fantasia inteira feita com embalagens limpas e coloridas de snacks e salgadinhos do STT!", icon: "fa-cookie-bite" },
+            { name: "Meme de Reunião 'Sua voz tá no mudo'", desc: "Traga uma placa gigante de 'Mute' e fique fazendo mímicas dramáticas durante a festa.", icon: "fa-microphone-slash" },
+            { name: "Mago dos Códigos & Poções", desc: "Capa roxa brilhante, varinha mágica e uma caneca fumegante cheia de poção secreta.", icon: "fa-wand-magic-sparkles" },
+            { name: "Vampiro/Vampira de Coffee Break", desc: "Elegante e misterioso, mas em vez de sangue, você só bebe café expresso duplo.", icon: "fa-mug-hot" },
+            { name: "Super-Herói / Heroína do Deadline", desc: "Capa esvoaçante feita de notas adesivas e um relógio no peito marcado em contagem regressiva.", icon: "fa-user-ninja" },
+            { name: "Detetive Noir da Mascarada", desc: "Sobretudo clássico, chapéu e uma máscara misteriosa de penas douradas.", icon: "fa-user-secret" },
+            { name: "Dupla: Café & Salgadinho", desc: "Combine com um colega: um vai vestido de xícara e o outro de pacote de coxinha!", icon: "fa-people-group" }
+        ];
+
+        let currentCostume = "";
+
+        // Trigger Confetti Effect
+        function triggerConfetti() {
+            if (typeof confetti === 'function') {
+                confetti({
+                    particleCount: 100,
+                    spread: 70,
+                    origin: { y: 0.6 },
+                    colors: ['#d946ef', '#f59e0b', '#a855f7', '#ffffff']
+                });
+            }
+        }
+
+        // Costume Generator Logic
+        function generateCostumeIdea() {
+            const display = document.getElementById('costume-result');
+            const copyBtn = document.getElementById('copy-btn');
+            
+            // Trigger quick confetti burst
+            triggerConfetti();
+
+            // Pick Random Idea
+            const random = costumeIdeas[Math.floor(Math.random() * costumeIdeas.length)];
+            currentCostume = `${random.name}: ${random.desc}`;
+
+            // Render Output
+            display.innerHTML = `
+                <div class="animate-bounce mb-2">
+                    <i class="fa-solid ${random.icon} text-4xl text-amber-400"></i>
+                </div>
+                <h4 class="font-title text-lg font-bold text-amber-300 mb-1">${random.name}</h4>
+                <p class="text-xs sm:text-sm text-gray-200 max-w-md">${random.desc}</p>
+            `;
+
+            copyBtn.classList.remove('hidden');
+        }
+
+        // Copy Idea to Clipboard
+        function copyCostumeIdea() {
+            if (!currentCostume) return;
+
+            const tempInput = document.createElement('textarea');
+            tempInput.value = currentCostume;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempInput);
+
+            showToast("Ideia de fantasia copiada com sucesso!");
+        }
+
+        // Poll Voting Simulation
+        let votes = [42, 35, 23];
+        let hasVoted = false;
+
+        function voteCategory(index) {
+            if (hasVoted) {
+                showToast("Você já registrou seu voto! Obrigado por participar.");
+                return;
+            }
+
+            votes[index - 1] += 5;
+            const total = votes.reduce((a, b) => a + b, 0);
+
+            const p1 = Math.round((votes[0] / total) * 100);
+            const p2 = Math.round((votes[1] / total) * 100);
+            const p3 = Math.round((votes[2] / total) * 100);
+
+            document.getElementById('poll-percent-1').innerText = p1 + "%";
+            document.getElementById('poll-bar-1').style.width = p1 + "%";
+
+            document.getElementById('poll-percent-2').innerText = p2 + "%";
+            document.getElementById('poll-bar-2').style.width = p2 + "%";
+
+            document.getElementById('poll-percent-3').innerText = p3 + "%";
+            document.getElementById('poll-bar-3').style.width = p3 + "%";
+
+            hasVoted = true;
+            document.getElementById('vote-notice').innerHTML = `<span class="text-amber-400 font-bold"><i class="fa-solid fa-check-circle"></i> Voto computado com sucesso!</span>`;
+            triggerConfetti();
+            showToast("Voto computado!");
+        }
+
+        // Countdown Timer Implementation
+        let countdownTarget = new Date('2026-10-09T18:30:00').getTime();
+        let countdownInterval = null;
+
+        function updateCountdownDisplay(days, hours, minutes, seconds) {
+            document.getElementById('cd-days').innerText = days !== null ? String(days).padStart(2, '0') : '--';
+            document.getElementById('cd-hours').innerText = hours !== null ? String(hours).padStart(2, '0') : '--';
+            document.getElementById('cd-minutes').innerText = minutes !== null ? String(minutes).padStart(2, '0') : '--';
+            document.getElementById('cd-seconds').innerText = seconds !== null ? String(seconds).padStart(2, '0') : '--';
+        }
+
+        function runCountdown() {
+            if (!countdownTarget) {
+                updateCountdownDisplay(null, null, null, null);
+                document.getElementById('countdown-status').innerText = "Status: Data em contagem para 09 de Outubro";
+                return;
+            }
+
+            const now = new Date().getTime();
+            const distance = countdownTarget - now;
+
+            if (distance < 0) {
+                clearInterval(countdownInterval);
+                updateCountdownDisplay(0, 0, 0, 0);
+                document.getElementById('countdown-status').innerText = "🎉 É HOJE! A Festa à Fantasia começou na E. E. Maria Vicência Brandão!";
+                triggerConfetti();
+                return;
+            }
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            updateCountdownDisplay(days, hours, minutes, seconds);
+        }
+
+        function updateCustomCountdown(selectedDateStr) {
+            if (!selectedDateStr) return;
+
+            const selectedDate = new Date(selectedDateStr + 'T18:30:00');
+            countdownTarget = selectedDate.getTime();
+
+            document.getElementById('countdown-status').innerText = `Status: Contando para ${selectedDate.toLocaleDateString('pt-BR')}`;
+            
+            if (countdownInterval) clearInterval(countdownInterval);
+            runCountdown();
+            countdownInterval = setInterval(runCountdown, 1000);
+            showToast("Contagem atualizada!");
+        }
+
+        // AI Modal Toggle
+        function toggleAIModal() {
+            const modal = document.getElementById('ai-modal');
+            modal.classList.toggle('hidden');
+        }
+
+        // Toast Helper
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            const toastMsg = document.getElementById('toast-message');
+            toastMsg.innerText = msg;
+
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            toast.classList.add('translate-y-0', 'opacity-100');
+
+            setTimeout(() => {
+                toast.classList.remove('translate-y-0', 'opacity-100');
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 3000);
+        }
+
+        window.onload = function() {
+            // Start countdown for October 9th, 2026
+            runCountdown();
+            countdownInterval = setInterval(runCountdown, 1000);
+
+            // Initial confetti burst on load
+            setTimeout(() => {
+                triggerConfetti();
+            }, 800);
+        };
+    </script>
+</body>
+</html>
